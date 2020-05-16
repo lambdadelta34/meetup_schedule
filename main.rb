@@ -45,9 +45,27 @@ def solve(schedules)
   ceo_time.to_s(2).count('1')
 end
 
+def solve1(schedules, calendar_size)
+  ceo_time = Array.new(calendar_size) { '0' }
+  schedules.each do |schedule|
+    offset, days_count = schedule
+    offset_time = ceo_time[offset...offset + days_count]
+    free_ceo_day = offset_time.index('0')
+    next if free_ceo_day.nil?
+
+    ceo_time[free_ceo_day + offset] = '1'
+  end
+  ceo_time.count('1')
+end
+
 def count_meetings(first_day, last_day)
   schedules = prepare_schedules(first_day, last_day)
   solve(schedules)
+end
+
+def count_meetings1(first_day, last_day)
+  schedules = prepare_schedules(first_day, last_day)
+  solve1(schedules, last_day.max)
 end
 
 # fptr = File.open(ENV['OUTPUT_PATH'], 'w')
