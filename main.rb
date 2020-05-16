@@ -49,7 +49,7 @@ def solve1(schedules, calendar_size)
   ceo_time = Array.new(calendar_size) { 0 }
   schedules.each do |schedule|
     offset, days_count = schedule
-    offset_time = ceo_time[offset...offset + days_count]
+    offset_time = ceo_time[offset..offset + days_count + 1]
     free_ceo_day = offset_time.index(0)
     next if free_ceo_day.nil?
 
@@ -62,7 +62,7 @@ def solve2(schedules, calendar_size)
   ceo_time = '0' * calendar_size
   schedules.each do |schedule|
     offset, days_count = schedule
-    offset_time = ceo_time[offset...offset + days_count]
+    offset_time = ceo_time[offset..offset + days_count + 1]
     free_ceo_day = offset_time.index('0')
     next if free_ceo_day.nil?
 
