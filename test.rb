@@ -27,8 +27,11 @@ Benchmark.bmbm do |bm|
   bm.report('integer ordered') do
     count_meetings((1..test_size).to_a, (1..test_size).to_a)
   end
-  bm.report('array<string> ordered') do
+  bm.report('array<integer> ordered') do
     count_meetings1((1..test_size).to_a, (1..test_size).to_a)
+  end
+  bm.report('array<string> ordered') do
+    count_meetings2((1..test_size).to_a, (1..test_size).to_a)
   end
 
   sam = (1..test_size).to_a
@@ -37,7 +40,10 @@ Benchmark.bmbm do |bm|
   bm.report('integer random') do
     count_meetings(fd, ld)
   end
-  bm.report('array<string> random') do
+  bm.report('array<integer> random') do
     count_meetings1(fd, ld)
+  end
+  bm.report('array<string> random') do
+    count_meetings2(fd, ld)
   end
 end
