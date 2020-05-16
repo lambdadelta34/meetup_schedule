@@ -22,28 +22,37 @@ require 'benchmark'
 # p count_meetings([3, 2, 5, 1, 1], [5, 4, 5, 3, 4]) == 5
 # p count_meetings([1, 4, 1, 4, 2, 3, 3], [3, 4, 2, 4, 3, 4, 4]) == 4
 
+test_size = 1_000_000
+sam = (1..test_size).to_a
+fd = Array.new(test_size) { sam.sample }
+ld = fd.map { |i| [test_size, i + sam.sample].min }
 Benchmark.bmbm do |bm|
-  test_size = 1_000_000
-  bm.report('integer ordered') do
-    count_meetings((1..test_size).to_a, (1..test_size).to_a)
-  end
   bm.report('array<integer> ordered') do
     count_meetings1((1..test_size).to_a, (1..test_size).to_a)
   end
+end
+Benchmark.bmbm do |bm|
   bm.report('array<string> ordered') do
     count_meetings2((1..test_size).to_a, (1..test_size).to_a)
   end
-
-  sam = (1..test_size).to_a
-  fd = Array.new(test_size) { sam.sample }
-  ld = fd.map { |i| [test_size, i + sam.sample].min }
-  bm.report('integer random') do
-    count_meetings(fd, ld)
+end
+Benchmark.bmbm do |bm|
+  bm.report('integer ordered') do
+    count_meetings((1..test_size).to_a, (1..test_size).to_a)
   end
+end
+Benchmark.bmbm do |bm|
   bm.report('array<integer> random') do
     count_meetings1(fd, ld)
   end
+end
+Benchmark.bmbm do |bm|
   bm.report('array<string> random') do
     count_meetings2(fd, ld)
+  end
+end
+Benchmark.bmbm do |bm|
+  bm.report('integer random') do
+    count_meetings(fd, ld)
   end
 end

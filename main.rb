@@ -59,7 +59,7 @@ def solve1(schedules, calendar_size)
 end
 
 def solve2(schedules, calendar_size)
-  ceo_time = Array.new(calendar_size) { '0' }
+  ceo_time = '0' * calendar_size
   schedules.each do |schedule|
     offset, days_count = schedule
     offset_time = ceo_time[offset...offset + days_count]
