@@ -32,7 +32,7 @@ Benchmark.bmbm do |bm|
   end
 end
 Benchmark.bmbm do |bm|
-  bm.report('array<string> ordered') do
+  bm.report('string ordered') do
     count_meetings2((1..test_size).to_a, (1..test_size).to_a)
   end
 end
@@ -47,7 +47,7 @@ Benchmark.bmbm do |bm|
   end
 end
 Benchmark.bmbm do |bm|
-  bm.report('array<string> random') do
+  bm.report('string random') do
     count_meetings2(fd, ld)
   end
 end
